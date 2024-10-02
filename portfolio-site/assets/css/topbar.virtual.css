@@ -715,8 +715,12 @@
 }
 
 
-@media screen and (max-width:600px) {
-  .menu-item li:first-child{
-      display: none;
+@media screen and (max-width: 600px) {
+  .menu-item li:first-child {
+    display: none;
+  }
+
+  .iframe-linkedin{
+    width: 90% !important;
   }
 }

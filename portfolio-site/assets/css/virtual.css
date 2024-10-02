@@ -72,9 +72,11 @@ body {
     font-weight: 400;
 }
 
+
 h1{
     font-weight: 900;
 }
+
 
 .fw-bold {
     font-weight: 700;
@@ -274,6 +276,8 @@ color: white!important;
     box-shadow: 0 3px 9px rgba(0, 0, 0, 0.4);
     z-index: 99;
 }
+
+
 
 /* Template Config */
 .config {
