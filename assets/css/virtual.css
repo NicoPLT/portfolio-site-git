@@ -79,6 +79,15 @@ h1{
     font-weight: 700;
 }
 
+.shrikhand{
+    font-family: "Shrikhand"; 
+    letter-spacing: 1px;
+    color: rgb(229, 229, 229)!important;    
+    background: #343a40;
+    padding: 12px 20px;
+    margin-top: 8px;
+}
+
 .fw-medium {
     font-weight: 500;
 }

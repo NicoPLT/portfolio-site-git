@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'LC Mogi A';
+    src: url('LCMogi-A.woff2') format('woff2'),
+        url('LCMogi-A.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
