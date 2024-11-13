@@ -249,6 +249,8 @@
     height: 400px;
     color: #fff;
     text-align: center;
+    text-shadow: 15px 15px 20px black;
+
 }
 
 .testi-carousel .item .iconic {
@@ -365,7 +367,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(62, 57, 57, 0.9);
+    background-color: rgba(62, 57, 57, 0.8);
     z-index: -1;
 }
 
