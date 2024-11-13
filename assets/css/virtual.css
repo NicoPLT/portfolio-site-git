@@ -82,10 +82,9 @@ h1{
 .shrikhand{
     font-family: "Shrikhand"; 
     letter-spacing: 1px;
-    color: rgb(229, 229, 229)!important;    
-    background: #343a40;
-    padding: 12px 20px;
-    margin-top: 8px;
+    color: rgb(48, 48, 48) !important;    
+    margin-top: 12px;
+    padding: 6px 0px;
 }
 
 .fw-medium {
