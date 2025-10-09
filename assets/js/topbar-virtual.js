@@ -18,6 +18,18 @@ $(function() {
     items: 1,
   });
   
+  $('.blog-carousel').owlCarousel({
+    margin: 16,
+    loop: true,
+    autoplay: false,
+    dots: true,
+    responsive: {
+      0: { items: 1 },
+      600: { items: 1 },
+      992: { items: 2 }
+    }
+  });
+  
   // Nice select
   $('.vg-select').niceSelect();
   

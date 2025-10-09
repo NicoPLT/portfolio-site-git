@@ -422,6 +422,16 @@
           </div>
         </div>
         <div class="grid-item webdv wireframes wow zoomIn">
+          <div class="img-place" data-src="assets/img/work/301f-bs.jpg" data-fancybox
+            data-caption="<h5 class='fg-theme'>Brevetti Stendalto</h5> <p>Cable chain production</p> <a href='https://301f-brevetti-stendalto.netlify.app/' class='btn btn-theme text-decoration' target='blank'>view site</a>">
+            <img src="assets/img/work/301f-bs.jpg" alt="">
+            <div class="img-caption">
+              <h5 class="fg-theme">Brevetti Stendalto</h5>
+              <p>Cable chain production</p>
+            </div>
+          </div>
+        </div>
+        <div class="grid-item webdv wireframes wow zoomIn">
           <div class="img-place" data-src="assets\img\work\simco-timeline.png" data-fancybox
             data-caption="<h5 class='fg-theme'>Simco Consulting History</h5> <p>Logistics Consulting</p> <a href='https://history-of-simco-consulting.webflow.io/' class='btn btn-theme text-decoration' target='blank'>view site</a>">
             <img src="assets\img\work\simco-timeline.png" alt="">
@@ -537,13 +547,9 @@
     <h1 class="text-center wow fadeInUp post-articles shrikhand" style="color: #9fadab!important;">Posts and articles
     </h1>
     <div class="text-center wow fadeInRight iframe-linkedin">
-      <iframe class="text-center" style="margin-top: 1.5em; width: 504px; height: 800px;"
-        src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7201612616526368770" height="854" frameborder="0"
-        title="Post incorporato"></iframe>
-      <iframe class="text-center iframe-linkedin"
-        style="margin-top: 1.5em; margin-left: 1em; width: 504px; height: 800px;"
-        src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7259941513403506688" height="854" frameborder="0"
-        title="Post incorporato"></iframe>
+      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7201612616526368770?collapsed=1" height="650" width="504" frameborder="0" allowfullscreen="" title="Post incorporato"></iframe>
+      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7259941513403506688?collapsed=1" height="650" width="504" frameborder="0" allowfullscreen="" title="Post incorporato"></iframe>
+      <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7371219654201151488?collapsed=1" height="650" width="504" frameborder="0" allowfullscreen="" title="Post incorporato"></iframe>
     </div>
   </div>
   <!--    end blog
@@ -828,6 +834,23 @@
       Promise.all(promises).then(() => {
         // A questo punto tutte le immagini sono caricate
         document.querySelector('.vg-page.page-portfolio').style.opacity = 1;
+        // Forza il rilayout di Isotope per evitare sovrapposizioni delle card
+        if (window.jQuery && jQuery('.gridder').length && typeof jQuery('.gridder').isotope === 'function') {
+          jQuery('.gridder').isotope('layout');
+        }
+      });
+
+      // Rilayout anche al resize (debounced)
+      let resizeTimeout = null;
+      window.addEventListener('resize', function () {
+        if (resizeTimeout) {
+          clearTimeout(resizeTimeout);
+        }
+        resizeTimeout = setTimeout(function () {
+          if (window.jQuery && jQuery('.gridder').length && typeof jQuery('.gridder').isotope === 'function') {
+            jQuery('.gridder').isotope('layout');
+          }
+        }, 150);
       });
     });
 
