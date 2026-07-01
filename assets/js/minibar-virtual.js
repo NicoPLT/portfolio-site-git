@@ -122,16 +122,24 @@ $(document).ready(function() {
     items: 1,
   });
   
-  $('.blog-carousel').owlCarousel({
+  var $blogCarousel = $('.blog-carousel');
+  $blogCarousel.owlCarousel({
     margin: 16,
-    loop: true,
+    loop: false,
     autoplay: false,
     dots: true,
+    nav: true,
+    navText: ['<span class="ti-angle-left"></span>', '<span class="ti-angle-right"></span>'],
     responsive: {
       0: { items: 1 },
       600: { items: 1 },
       992: { items: 2 }
     }
+  });
+
+  $blogCarousel.find('iframe[data-src]').each(function() {
+    var $iframe = $(this);
+    $iframe.attr('src', $iframe.attr('data-src')).removeAttr('data-src');
   });
   
   $('.toggle-menu').click(function() {

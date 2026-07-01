@@ -443,17 +443,6 @@
   color: #777;
 }
 
-.widget-grid .form-control {
-  border-width: 0 0 2px 0;
-  border-radius: 0;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-.widget-grid .form-control:focus {
-  box-shadow: none;
-}
-
 
 .page-contact {
   background-color: #fff;
