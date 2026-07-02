@@ -1,5 +1,12 @@
 (function () {
-  // Elements that should trigger the "tap" hint (built from every
+  // Mobile/touch gets no custom cursor or effect at all — native behavior only.
+  if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) {
+    return;
+  }
+
+  var LERP_SPEED = 0.35; // how quickly the ring catches up to the real cursor
+
+  // Elements that trigger the hover ring style (built from every
   // cursor:pointer / click affordance actually used on this site).
   var CLICKABLE_SELECTOR = [
     'a[href]', 'button', 'label', 'summary',
@@ -13,7 +20,7 @@
   ].join(', ');
 
   // Text-entry fields: leave the native cursor/caret alone so the
-  // giant finger doesn't cover the field while the user is typing.
+  // ring doesn't cover the field while the user is typing.
   var TEXT_FIELD_SELECTOR = [
     'input:not([type="checkbox"]):not([type="radio"]):not([type="range"])' +
       ':not([type="color"]):not([type="submit"]):not([type="button"])' +
@@ -21,55 +28,34 @@
     'textarea', 'select', '[contenteditable="true"]'
   ].join(', ');
 
-  var isCoarsePointer = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-
-  if (isCoarsePointer) {
-    // Mobile/touch: no floating cursor (the finger is already on the
-    // glass) — show a quick tap "pop" on clickable elements instead.
-    document.addEventListener('click', function (e) {
-      var target = e.target && e.target.closest && e.target.closest(CLICKABLE_SELECTOR);
-      if (!target) return;
-
-      var fx = document.createElement('div');
-      fx.className = 'giant-cursor-tap-fx';
-      fx.textContent = '\u{1F446}'; // 👆
-      fx.style.left = e.clientX + 'px';
-      fx.style.top = e.clientY + 'px';
-      document.body.appendChild(fx);
-      fx.addEventListener('animationend', function () {
-        fx.remove();
-      });
-    }, true);
-    return;
-  }
-
   var cursor = document.createElement('div');
   cursor.id = 'giant-cursor';
 
-  var inner = document.createElement('span');
-  inner.className = 'giant-cursor-inner';
-  inner.textContent = '\u{1F446}'; // 👆
-  cursor.appendChild(inner);
+  var arrow = document.createElement('i');
+  arrow.className = 'giant-cursor-arrow ti-angle-right';
+  cursor.appendChild(arrow);
 
   document.body.appendChild(cursor);
   document.body.classList.add('giant-cursor-active');
 
-  document.addEventListener('mousemove', function (e) {
-    var overTextField = e.target && e.target.closest && e.target.closest(TEXT_FIELD_SELECTOR);
+  var mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  var pos = { x: mouse.x, y: mouse.y };
 
+  document.addEventListener('mousemove', function (e) {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+
+    var overTextField = e.target && e.target.closest && e.target.closest(TEXT_FIELD_SELECTOR);
     if (overTextField) {
       cursor.classList.remove('visible');
       return;
     }
 
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    var isClickable = e.target && e.target.closest && e.target.closest(CLICKABLE_SELECTOR);
+    cursor.classList.toggle('pointer', !!isClickable);
     cursor.classList.add('visible');
-    cursor.classList.toggle('pointer', !!(e.target.closest && e.target.closest(CLICKABLE_SELECTOR)));
   });
 
-  // Keep the cursor hidden while a text field is focused even if the
-  // mouse doesn't move (e.g. focused via click then the user types).
   document.addEventListener('focusin', function (e) {
     if (e.target && e.target.closest && e.target.closest(TEXT_FIELD_SELECTOR)) {
       cursor.classList.remove('visible');
@@ -79,4 +65,11 @@
   document.addEventListener('mouseleave', function () {
     cursor.classList.remove('visible');
   });
+
+  (function tick() {
+    pos.x += (mouse.x - pos.x) * LERP_SPEED;
+    pos.y += (mouse.y - pos.y) * LERP_SPEED;
+    cursor.style.transform = 'translate(' + pos.x + 'px, ' + pos.y + 'px) translate(-50%, -50%)';
+    requestAnimationFrame(tick);
+  })();
 })();

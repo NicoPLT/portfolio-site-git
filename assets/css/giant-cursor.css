@@ -1,4 +1,15 @@
-/* Giant finger cursor (desktop, fine pointer only) */
+/* Ring cursor (desktop, fine pointer only), following the CodePen
+   reference (cobra_winfrey/OJRjBoj): a circle that trails the real
+   cursor with a lerped lag, synced to the site's theme color picker,
+   and morphs on hover of clickable elements. No emoji. Mobile/touch
+   gets no custom cursor. */
+
+body.theme-red     { --cursor-color: var(--theme-red); }
+body.theme-blue    { --cursor-color: var(--theme-blue); }
+body.theme-green   { --cursor-color: var(--theme-green); }
+body.theme-orange  { --cursor-color: var(--theme-orange); }
+body.theme-purple  { --cursor-color: var(--theme-purple); }
+
 body.giant-cursor-active,
 body.giant-cursor-active * {
   cursor: none !important;
@@ -17,63 +28,38 @@ body.giant-cursor-active [contenteditable="true"] {
   position: fixed;
   top: 0;
   left: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  border: 2px solid var(--cursor-color, #ef3724);
+  background: transparent;
   pointer-events: none;
   z-index: 99999;
-  transform: translate(-50%, -50%);
   opacity: 0;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out, border-color 0.3s ease-in-out;
 }
 
 #giant-cursor.visible {
   opacity: 1;
 }
 
-#giant-cursor .giant-cursor-inner {
-  display: block;
-  font-size: 64px;
-  line-height: 1;
-  user-select: none;
-  transform-origin: 50% 70%;
-  transition: transform 0.15s ease;
+#giant-cursor.pointer {
+  background: #000;
+  border-color: #000;
 }
 
-#giant-cursor.pointer .giant-cursor-inner {
-  animation: giant-cursor-tap 0.7s ease-in-out infinite;
-}
-
-@keyframes giant-cursor-tap {
-  0%, 100% {
-    transform: scale(1) translateY(0);
-  }
-  50% {
-    transform: scale(1.18) translateY(-10px);
-  }
-}
-
-/* Touch feedback (coarse pointer / mobile): a brief tap indicator
-   instead of a floating cursor, since the finger is already on screen. */
-.giant-cursor-tap-fx {
-  position: fixed;
-  z-index: 99999;
-  font-size: 38px;
-  line-height: 1;
-  pointer-events: none;
-  transform: translate(-50%, -60%) scale(0.4);
+#giant-cursor .giant-cursor-arrow {
+  font-size: 13px;
+  color: #fff;
   opacity: 0;
-  animation: giant-cursor-tap-fx 0.45s ease-out forwards;
+  transform: scale(0);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease-in-out;
 }
 
-@keyframes giant-cursor-tap-fx {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -60%) scale(0.4);
-  }
-  30% {
-    opacity: 1;
-    transform: translate(-50%, -60%) scale(1.1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -85%) scale(1);
-  }
+#giant-cursor.pointer .giant-cursor-arrow {
+  opacity: 1;
+  transform: scale(1);
 }
