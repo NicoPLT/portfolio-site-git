@@ -35,6 +35,14 @@
     --theme-purple: #6f42c1;
 }
 
+/* Current theme accent, kept in sync with the .color-item picker
+   (topbar-virtual.js) so any feature can read a single variable. */
+body.theme-red    { --theme-accent: var(--theme-red); }
+body.theme-blue   { --theme-accent: var(--theme-blue); }
+body.theme-green  { --theme-accent: var(--theme-green); }
+body.theme-orange { --theme-accent: var(--theme-orange); }
+body.theme-purple { --theme-accent: var(--theme-purple); }
+
 /* Light 
 @font-face {
     font-family: 'Quicksand';

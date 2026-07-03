@@ -1,0 +1,50 @@
+/* "Welcome Animation" character: injected inline (see welcome-svg.js)
+   so its gradients can follow --theme-accent (assets/css/virtual.css),
+   the same variable the color picker drives. */
+
+.img-place > svg.welcome-animation-svg {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* The character's canvas has transparent padding around it (room for
+   the arm-swing animation), unlike the opaque photo this replaced, so
+   the placeholder's own gray backdrop would otherwise show through. */
+.page-about .img-place {
+  background-color: transparent;
+}
+
+/* Clothing gradient, family A (shirt) */
+.welcome-animation-svg stop[stop-color="#06bed8"],
+.welcome-animation-svg stop[stop-color="#0da9ab"] {
+  stop-color: var(--theme-accent, #ef3724);
+}
+
+.welcome-animation-svg stop[stop-color="#60d7b9"],
+.welcome-animation-svg stop[stop-color="#65cb9f"],
+.welcome-animation-svg stop[stop-color="#4ec9af"] {
+  stop-color: color-mix(in srgb, var(--theme-accent, #ef3724) 65%, white);
+}
+
+.welcome-animation-svg stop[stop-color="#72dcb3"],
+.welcome-animation-svg stop[stop-color="#76d29d"],
+.welcome-animation-svg stop[stop-color="#81e3b2"],
+.welcome-animation-svg stop[stop-color="#8eeab3"] {
+  stop-color: color-mix(in srgb, var(--theme-accent, #ef3724) 50%, white);
+}
+
+.welcome-animation-svg stop[stop-color="#defa8e"],
+.welcome-animation-svg stop[stop-color="#b6f2a0"] {
+  stop-color: color-mix(in srgb, var(--theme-accent, #ef3724) 30%, white);
+}
+
+/* Pale shine/highlight gradients: keep bright, just tint them */
+.welcome-animation-svg stop[stop-color="#aef0eb"],
+.welcome-animation-svg stop[stop-color="#c0f3eb"],
+.welcome-animation-svg stop[stop-color="#c3f4eb"],
+.welcome-animation-svg stop[stop-color="#d7f8ea"],
+.welcome-animation-svg stop[stop-color="#e1f8ee"],
+.welcome-animation-svg stop[stop-color="#ecf8f2"] {
+  stop-color: color-mix(in srgb, var(--theme-accent, #ef3724) 12%, white);
+}

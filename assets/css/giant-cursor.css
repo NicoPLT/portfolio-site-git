@@ -4,12 +4,6 @@
    and morphs on hover of clickable elements. No emoji. Mobile/touch
    gets no custom cursor. */
 
-body.theme-red     { --cursor-color: var(--theme-red); }
-body.theme-blue    { --cursor-color: var(--theme-blue); }
-body.theme-green   { --cursor-color: var(--theme-green); }
-body.theme-orange  { --cursor-color: var(--theme-orange); }
-body.theme-purple  { --cursor-color: var(--theme-purple); }
-
 body.giant-cursor-active,
 body.giant-cursor-active * {
   cursor: none !important;
@@ -34,7 +28,7 @@ body.giant-cursor-active [contenteditable="true"] {
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  border: 2px solid var(--cursor-color, #ef3724);
+  border: 2px solid var(--theme-accent, #ef3724);
   background: transparent;
   pointer-events: none;
   z-index: 99999;
